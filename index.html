@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Pomodoro Focus</title>
+    <meta name="description" content="A minimal, aesthetic Pomodoro timer.">
+
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon.jpg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <canvas id="backgroundCanvas"></canvas>
+    <audio id="bgm" src="Loopable%20(BGM.24%20seconds).mp3" preload="auto" loop></audio>
+    <audio id="alarmSound" src="Alarm%20Sound%20(15%20seconds)%20.mp3" preload="auto"></audio>
+
+    <div class="app-container">
+        <header>
+            <button id="musicToggle" class="text-button" aria-label="Toggle Music" style="margin-right: 10px;">
+                [MUSIC: ON]
+            </button>
+            <button id="themeToggle" class="text-button" aria-label="Switch Theme">
+                [THEME]
+            </button>
+        </header>
+
+        <main>
+            <div class="timer-display">
+                <span id="minutes">25</span><span class="separator">:</span><span id="seconds">00</span>
+            </div>
+
+            <div class="controls">
+                <button id="startPauseBtn" class="primary-button">Start</button>
+                <button id="resetBtn" class="secondary-button">Reset</button>
+            </div>
+
+            <div class="presets">
+                <button class="preset-btn" data-time="30">30m</button>
+                <button class="preset-btn" data-time="45">45m</button>
+                <button class="preset-btn" data-time="60">60m</button>
+                <button id="customTimerBtn" class="preset-btn">Custom</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Custom Timer Modal -->
+    <div id="customTimerModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-display">
+                <span id="modalHr">00</span>:<span id="modalMin">00</span>:<span id="modalSec">00</span>
+            </div>
+
+            <div class="unit-selector">
+                <button class="unit-btn" data-unit="hr">HR</button>
+                <button class="unit-btn active" data-unit="min">MIN</button>
+                <button class="unit-btn" data-unit="sec">SEC</button>
+            </div>
+
+            <div class="numpad">
+                <button class="num-btn" data-num="1">1</button>
+                <button class="num-btn" data-num="2">2</button>
+                <button class="num-btn" data-num="3">3</button>
+                <button class="num-btn" data-num="4">4</button>
+                <button class="num-btn" data-num="5">5</button>
+                <button class="num-btn" data-num="6">6</button>
+                <button class="num-btn" data-num="7">7</button>
+                <button class="num-btn" data-num="8">8</button>
+                <button class="num-btn" data-num="9">9</button>
+                <button class="num-btn" data-num="0">0</button>
+            </div>
+
+            <div class="modal-actions">
+                <button id="modalCancelBtn" class="secondary-button">Cancel</button>
+                <button id="modalSetBtn" class="primary-button">Set</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Time Up Modal -->
+    <div id="timeUpModal" class="modal hidden">
+        <div class="modal-content" style="text-align: center;">
+            <div class="modal-display" style="font-size: 2rem; margin-bottom: 2rem;">
+                Time Is Up!
+            </div>
+            <div class="modal-actions" style="justify-content: flex-end;">
+                <button id="timeUpOkBtn" class="primary-button">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="pixelSnow.js"></script>
+    <script src="pixelLeaves.js"></script>
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('serviceWorker.js')
+                .then(() => console.log('Service Worker Registered'))
+                .catch(err => console.log('Service Worker Failed', err));
+        }
+    </script>
+</body>
+
+</html>
