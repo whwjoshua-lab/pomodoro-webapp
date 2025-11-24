@@ -157,7 +157,7 @@ function pauseTimer() {
 
 function resetTimer() {
     pauseTimer();
-    timeLeft = TIMER_DEFAULT; // Or last set preset
+    timeLeft = TIMER_DEFAULT;
     updateDisplay();
 
     bgm.pause();
